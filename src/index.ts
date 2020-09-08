@@ -8,8 +8,8 @@ export interface IMAPConnectorConfigOptions {
   user: string
   password: string
   tls: boolean
-  tlsOptions: Record<string, any>
-  mailbox: string
+  tlsOptions?: Record<string, any>
+  mailbox?: string
   markSeen: boolean
 }
 
@@ -19,10 +19,9 @@ export interface IMAPConnectorEventOptions {
 
 class IMAPConnector extends BaseConnector<IMAPConnectorConfigOptions, IMAPConnectorEventOptions> {
   private imap: ImapClient
-  private parser = simpleParser
   private readonly mailbox: string
 
-  constructor(options: IMAPConnectorConfigOptions, id: string) {
+  constructor(options: IMAPConnectorConfigOptions, id?: string) {
     super(options, id)
     this.mailbox = options.mailbox || 'INBOX'
     this.imap = new ImapClient({
@@ -62,20 +61,6 @@ class IMAPConnector extends BaseConnector<IMAPConnectorConfigOptions, IMAPConnec
     const event = new EventConfiguration(eventId, this, options)
     this.eventConfigurations[event.id] = event
     return event
-  }
-
-  onRemoveEvent(event: EventConfiguration) {
-    delete this.eventConfigurations[event.id]
-  }
-
-  private imapReady() {
-    this.imap.openBox(this.mailbox, false, (error, mailbox) => {
-      if (error) throw error
-
-      this.imap.on('mail', (newMessageNumber: any) => {
-        this.handleNewMessages()
-      })
-    })
   }
 
   private handleNewMessages() {

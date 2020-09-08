@@ -1,7 +1,7 @@
 {
   "name": "reshuffle-imap-connector",
   "version": "0.0.1",
-  "description": "An Reshuffle IMAP connector",
+  "description": "A Reshuffle IMAP connector",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
