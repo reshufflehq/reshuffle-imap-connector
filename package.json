@@ -1,0 +1,51 @@
+{
+  "name": "reshuffle-imap-connector",
+  "version": "0.0.1",
+  "description": "An Reshuffle IMAP connector",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "build:watch": "rimraf dist && tsc -w",
+    "lint": "eslint . --ext .ts,.js --fix",
+    "prepublishOnly": "rimraf dist && tsc",
+    "prepare": "rimraf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reshufflehq/reshuffle-imap-connector.git"
+  },
+  "keywords": [
+    "Reshuffle",
+    "integrations",
+    "workflows",
+    "IMAP",
+    "email"
+  ],
+  "author": "Nimo Naamani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reshufflehq/reshuffle-imap-connector/issues"
+  },
+  "homepage": "https://github.com/reshufflehq/reshuffle-imap-connector#readme",
+  "dependencies": {
+    "@types/imap": "^0.8.30",
+    "@types/mailparser": "^2.7.3",
+    "imap": "^0.8.19",
+    "mailparser": "^2.7.7",
+    "nanoid": "^3.1.12",
+    "prettier": "^2.1.1",
+    "reshuffle-base-connector": "^0.0.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
+  }
+}
