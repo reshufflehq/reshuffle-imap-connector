@@ -2,13 +2,7 @@ import { Reshuffle, BaseConnector, EventConfiguration } from 'reshuffle-base-con
 import ImapClient from 'imap'
 import { simpleParser } from 'mailparser'
 
-export interface IMAPConnectorConfigOptions {
-  host: string
-  port: number
-  user: string
-  password: string
-  tls: boolean
-  tlsOptions?: Record<string, any>
+export interface IMAPConnectorConfigOptions extends ImapClient.Config {
   mailbox?: string
   markSeen: boolean
 }
