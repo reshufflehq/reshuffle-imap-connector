@@ -11,30 +11,33 @@ export interface IMAPConnectorEventOptions {
   name: string
 }
 
-class IMAPConnector extends BaseConnector<IMAPConnectorConfigOptions, IMAPConnectorEventOptions> {
+export default class IMAPConnector extends BaseConnector<
+  IMAPConnectorConfigOptions,
+  IMAPConnectorEventOptions
+> {
   private imap: ImapClient
   private readonly mailbox: string
 
-  constructor(options: IMAPConnectorConfigOptions, id?: string) {
-    super(options, id)
+  constructor(app: Reshuffle, options: IMAPConnectorConfigOptions, id?: string) {
+    super(app, options, id)
     this.mailbox = options.mailbox || 'INBOX'
     this.imap = new ImapClient({
       ...options,
     })
   }
 
-  onStart(app: Reshuffle) {
+  onStart(): void {
     this.imap.once('ready', () => {
-      this.imap.openBox(this.mailbox, false, (error, mailbox) => {
+      this.imap.openBox(this.mailbox, false, (error: Error) => {
         if (error) throw error
 
-        this.imap.on('mail', (newMessageNumber: any) => {
+        this.imap.on('mail', () => {
           this.handleNewMessages()
         })
       })
     })
 
-    this.imap.on('error', (err: any) => {
+    this.imap.on('error', (err: Error) => {
       console.error('IMAP error', err)
     })
 
@@ -44,16 +47,18 @@ class IMAPConnector extends BaseConnector<IMAPConnectorConfigOptions, IMAPConnec
     this.imap.connect()
   }
 
-  onStop() {
+  onStop(): void {
     this.imap.destroy()
   }
 
-  on(options: IMAPConnectorEventOptions, eventId: string): EventConfiguration {
+  on(options: IMAPConnectorEventOptions, handler: any, eventId: string): EventConfiguration {
     if (!eventId) {
       eventId = `IMAP/${options.name}/${this.id}`
     }
     const event = new EventConfiguration(eventId, this, options)
     this.eventConfigurations[event.id] = event
+
+    this.app.when(event, handler)
     return event
   }
 
@@ -68,7 +73,7 @@ class IMAPConnector extends BaseConnector<IMAPConnectorConfigOptions, IMAPConnec
         })
         fetched.on('message', (msg, _seqno) => {
           const event: any = {}
-          msg.on('body', async (stream, _info) => {
+          msg.on('body', async (stream) => {
             const parsed = await simpleParser(stream)
             event.mail = {
               headers: parsed.headers,
@@ -79,7 +84,7 @@ class IMAPConnector extends BaseConnector<IMAPConnectorConfigOptions, IMAPConnec
               },
               seqno: _seqno,
             }
-            this.app!.handleEvent('email', event)
+            await this.app.handleEvent('email', event)
           })
           msg.once('attributes', (attrs) => {
             event.date = attrs.date
