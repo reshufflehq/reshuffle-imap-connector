@@ -1,6 +1,6 @@
 {
   "name": "reshuffle-imap-connector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Reshuffle IMAP connector",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,7 +22,7 @@
     "IMAP",
     "email"
   ],
-  "author": "Nimo Naamani",
+  "author": "Nimo Naamani, Christophe Gachiniard",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/reshufflehq/reshuffle-imap-connector/issues"
@@ -33,9 +33,7 @@
     "@types/mailparser": "^2.7.3",
     "imap": "^0.8.19",
     "mailparser": "^2.7.7",
-    "nanoid": "^3.1.12",
-    "prettier": "^2.1.1",
-    "reshuffle-base-connector": "^0.0.6"
+    "reshuffle-base-connector": "^0.0.9"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.10.1",
