@@ -1,10 +1,10 @@
 # reshuffle-imap-connector
 
-###Reshuffle IMAP Connector
+### Reshuffle IMAP Connector
 
 This connector provides the Reshuffle framework with IMAP email fetching capabilities.
 
-####Configuration Options:
+#### Configuration Options:
 ```typescript
 interface IMAPConnectorConfigOptions {
   host: string // The imap host
