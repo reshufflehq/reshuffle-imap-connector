@@ -6,7 +6,38 @@
 
 ### Reshuffle IMAP Connector
 
-This connector provides the Reshuffle framework with IMAP email fetching capabilities.
+
+This is a [Reshuffle](https://dev.reshuffle.com) connector that lets you use IMAP email fetching capabilities.
+
+The following example listens to an incoming email:
+
+```js
+const { Reshuffle } = require('reshuffle')
+const { IMAPConnector } = require('reshuffle-imap-connector')
+
+// Can easily be tested using https://ethereal.email/
+
+const app = new Reshuffle()
+const imap = new IMAPConnector(
+  app,
+  {
+    host: '<imap host>',
+    port: 993,
+    user: '<inbox email address>',
+    password: '<inbox password>',
+    tls: true,
+    // tlsOptions: Record<string, any>
+    markSeen: false,
+  },
+  'connectors/IMAP',
+)
+
+imap.on({ name: 'email' }, 'email', (event) => {
+  console.log(event.mail.body.text)
+})
+
+app.start()
+```
 
 #### Configuration Options:
 ```typescript
