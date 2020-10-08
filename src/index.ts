@@ -77,17 +77,15 @@ export default class IMAPConnector extends BaseConnector<
 
             await this.app.handleEvent(event.id, {
               ...event,
-              context: {
-                mailbox: event.options.mailbox,
-                mail: {
-                  headers: parsed.headers,
-                  body: {
-                    html: parsed.html,
-                    text: parsed.text,
-                    textAsHtml: parsed.textAsHtml,
-                  },
-                  seqno,
+              mailbox: event.options.mailbox,
+              mail: {
+                headers: parsed.headers,
+                body: {
+                  html: parsed.html,
+                  text: parsed.text,
+                  textAsHtml: parsed.textAsHtml,
                 },
+                seqno,
               },
             })
           })
