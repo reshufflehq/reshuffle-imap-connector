@@ -61,7 +61,7 @@ Usage:
 const options = { mailbox:'INBOX' }
 const handler = (event) => {
                 
-// event.context is an object with
+// event is an object with
 // {
 //    mailbox
 //    mail: {
