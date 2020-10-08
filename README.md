@@ -59,9 +59,9 @@ The connector fires this event when an email arrives.
 Usage:
 ```js
 const options = { mailbox:'INBOX' }
-const handler = (event) => {
+const handler = (event, app) => {
                 
-// event.context is an object with
+// event is an object with
 // {
 //    mailbox
 //    mail: {
