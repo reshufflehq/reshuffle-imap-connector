@@ -7,7 +7,7 @@
 ### Reshuffle IMAP Connector
 
 
-This is a [Reshuffle](https://dev.reshuffle.com) connector that lets you use IMAP email fetching capabilities.
+This is a [Reshuffle](https://github.com/reshufflehq/reshuffle) connector that lets you use IMAP email fetching capabilities.
 
 The following example listens to an incoming email:
 
